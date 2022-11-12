@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+   <!--<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
+
+    <meta content="utf-8" http-equiv="encoding" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Uncomment if you want your page to NOT be indexed by search engines: -->
+    <!-- <meta name="robots" content="none"> -->
+    <link rel="stylesheet" href="style.css" />
+    <title>NBAnalysis</title>
+
+    <!-- Uncomment if using d3: -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+  </head>
+
+  <!------------------------------------------------------------>
+  <!-- You are free to modify this template however you want! -->
+  <!------------------------------------------------------------>
+
+  <body>
+    <header>
+      <h1 id="headerTitle"><a href=".">NBAnalysis</a></h1>
+
+      <p><strong>Team Members</strong>: Assefa, Samuel; Desta, Jonathan</p>
+    </header>
+
+    <main>
+      <div>
+        <button
+          onclick="update('threeAttempts', 'Three Point Attempts'); changeLabel()"
+        >
+          THREE-POINTERS ATTEMPTED
+        </button>
+        <button
+          onclick="update('threePercentage', 'Three Point %'); changeLabel2()"
+        >
+          THREE-POINT PERCENTAGE
+        </button>
+        <button
+          onclick="update('threesMade', 'Three Points Made'); changeLabel3()"
+        >
+          THREE-POINTERS MADE
+        </button>
+      </div>
+      <div>
+        <h3 id="title">How the three-point shot has changed in the NBA</h3>
+      </div>
+      <p id="ylabel">Three Point Attempts</p>
+
+      <div id="graphVisual"></div>
+      <p>
+        3 Point Attempts/Percentage(%) since the 3 point line was introduced to
+        the NBA (1979)<br />
+        Source:
+        <a
+          href="https://www.basketball-reference.com/leagues/NBA_stats_totals.html"
+          alt="link to our nba dataset"
+          >basketball-reference</a
+        >
+      </p>
+
+      <!-- Visualization -->
+    </main>
+
+    <!-- If you put your rationale in your README, you can delete these two sections: -->
+
+    <section>
+      <h2>Design decisions</h2>
+      <p>
+        <em
+          >Add a rationale for your design decisions. How did you choose your
+          particular visual encodings and interaction techniques? What
+          alternatives did you consider and how did you arrive at your ultimate
+          choices? How does your design help the viewer reach the intended
+          conclusions?</em
+        >
+        <br /><br />
+
+        Initially, we planned on using some sort of scatter plot that would be
+        toggled by a button to show the data throughout the years, but we
+        would've had way to many tuples to chose from in our data set and
+        would've made our visual "deceptive" in that sense. We chose our encoding to
+        be a bar graph in order to portray our data in a simple and concise way for our User. 
+        We decided to make our x-axis quantitative so that we could clearly illustrate the year being
+        referenced to since there's a natural sorting to the axis.<br /><br />
+
+        We also have different graphs via our buttons to view additional data to
+        give a better understanding of our question through multiple data
+        points. This interaction technique is helpful in determining how the 3
+        point shot has changed in the NBA because it allows us to compare these
+        metrics, see changes, and make a conclusion from them. (more below) In
+        addition to this, our color hue in a scheme that would give us a clean
+        contrast. with our two color hues of #943d24 & #fffbf0 to give the User
+        a soft/clean look at the data.<br /><br />
+
+        If a user is a screen reader, the alt atttribute (code line: 52)
+        specifies an alternative text that the potential user can use to discern
+        abstractlly what our website regards.<br />
+
+        <br />
+        From our dataset, we filtered three metrics making sure that they were
+        reliable in demonstrating and proving our intended conclusions regarding
+        the increased utilization of the three pointer in the National Baketball
+        Association. Futhermore, we wanted to highlight the slight rise in the
+        accuracy NBA players possess when shooting three pointers these past 43
+        years (3P%). We selected three pointers made, three pointers attempted,
+        and three point percentages for the years 1979-2022. As noted, years
+        represents our independent variable (x-axis) while each chosen metric
+        was represented as a dependent variable (y-axis) in each respective tab
+        in which a user can interact with (tab switching). These data-driven
+        buttons allow a users to see our three chosen metrics in a interactive
+        way to prove our arguments. <br />
+
+        <br />
+        Our visual aims at presenting audiences with the fact that the three
+        point shot has gained popularity as we see in it's increased
+        utilization. The bars act as reference points for a respective year and
+        provide a comparison metric in it's height.
+      </p>
+      <p>
+        <!-- TODO: Rationale -->
+      </p>
+    </section>
+
+    <section>
+      <h2>Development process</h2>
+      <p>
+        <em
+          >Describe how the work was split among the team members. Include a
+          commentary on the development process, including answers to the
+          following questions: Roughly how much time did you spend developing
+          your application (in person-hours)? What aspects took the most
+          time</em
+        ><br /><br />
+
+        We did this through pair programming via, liveshare so we both dabbled
+        with the html,css,and js. The frontend was enjoyable because seeing your
+        changes and making things look nice is always satisfying to the user &
+        especially the implementer. The JS is where most of our debugging was
+        taking place. This included trying to get get an element and having it
+        function the way we wanted, and creating functions to help our html
+        attributes work in sync.
+
+        <br />
+
+        <br />
+        This assignment took approxiamtely 21 hours. The most time consuming
+        aspect was figuring out how to peform d3 visualization customizations
+        using javascript. Figuring out the exact attrbutes of our
+        dataset/formulating a guiding question given a wide NBA database took
+        the second most amount of time.
+      </p>
+      <p>
+        <!-- TODO: Development Process -->
+      </p>
+    </section>
+
+
+    <footer>
+      <p>
+        <a href="https://gitlab.cs.washington.edu/cse442-22au/a3/NBAnalysis"
+          >Code repository</a
+        >
+        <br />
+        <a href="https://courses.cs.washington.edu/courses/cse442/22au/"
+          >CSE 442 Data Visualization</a
+        >
+        <br />
+        <a href="https://www.washington.edu">University of Washington</a>
+      </p>
+    </footer>
+    <script>
+      var margin = { top: 30, right: 30, bottom: 70, left: 60 },
+        width = 1300 - margin.left - margin.right,
+        height = 650 - margin.top - margin.bottom;
+
+      var svg = d3
+        .select("#graphVisual")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      svg
+        .append("circle")
+        .attr("cx", 900)
+        .attr("cy", -10)
+        .attr("r", 6)
+        .style("fill", "black");
+
+      svg
+        .append("text")
+        .attr("x", 920)
+        .attr("y", -9)
+        .text("2022 season is on-going")
+        .style("font-size", "15px")
+        .attr("alignment-baseline", "middle");
+
+      var x = d3.scaleBand().range([0, width]).padding(0.2);
+      var xAxis = svg
+        .append("g")
+        .attr("transform", "translate(0," + height + ")");
+
+      var y = d3.scaleLinear().range([height, 0]);
+      var yAxis = svg.append("g").attr("class", "myYaxis");
+
+      svg
+        .append("text")
+        .attr("x", 500)
+        .attr("y", 600)
+        .style("text-anchor", "middle")
+        .text("Year");
+
+      // svg.append("text")
+      // .attr("transform", "rotate(-90)")
+      // .attr("y", 0 - margin.left)
+      // .attr("x",0 - (height / 2))
+      // .attr("dy", "1em")
+      // .style("text-anchor", "middle")
+      // .text();
+
+      function changeLabel() {
+        const ylabel = document.getElementById("ylabel");
+        ylabel.innerHTML = "Three Point Attempts";
+      }
+
+      function changeLabel2() {
+        const ylabel = document.getElementById("ylabel");
+        ylabel.innerHTML = "Three Point Percentage %";
+      }
+
+      function changeLabel3() {
+        const ylabel = document.getElementById("ylabel");
+        ylabel.innerHTML = "Three Pointers Made";
+      }
+
+      function update(selectedVar, text) {
+        // Parse the Data
+        d3.csv("../nbaAvgs.csv", function (data) {
+          // X axis
+          x.domain(
+            data.map(function (d) {
+              return d.Year;
+            })
+          );
+          xAxis.transition().duration(1000).call(d3.axisBottom(x));
+
+          // Add Y axis
+          y.domain([
+            0,
+            d3.max(data, function (d) {
+              return +d[selectedVar];
+            }),
+          ]);
+
+          yAxis.transition().duration(1000).call(d3.axisLeft(y));
+          var l = svg.selectAll("rect").data(data);
+
+          // update bars
+          l.enter()
+            .append("rect")
+            .merge(l)
+            .transition()
+            .duration(1000)
+            .attr("x", function (d) {
+              return x(d.Year);
+            })
+            .attr("y", function (d) {
+              return y(d[selectedVar]);
+            })
+            .attr("width", x.bandwidth())
+            .attr("height", function (d) {
+              return height - y(d[selectedVar]);
+            })
+            .attr("fill", "#943d24");
+        });
+      }
+
+      // Initializes plot with threeAttempts data
+      update("threeAttempts", "Three Point Attempts");
+    </script>
+  </body>
+</html>
