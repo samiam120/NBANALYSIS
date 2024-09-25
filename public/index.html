@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-   <!--<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
+    <!--<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
 
     <meta content="utf-8" http-equiv="encoding" />
     <meta charset="utf-8" />
@@ -81,10 +81,11 @@
         Initially, we planned on using some sort of scatter plot that would be
         toggled by a button to show the data throughout the years, but we
         would've had way to many tuples to chose from in our data set and
-        would've made our visual "deceptive" in that sense. We chose our encoding to
-        be a bar graph in order to portray our data in a simple and concise way for our User. 
-        We decided to make our x-axis quantitative so that we could clearly illustrate the year being
-        referenced to since there's a natural sorting to the axis.<br /><br />
+        would've made our visual "deceptive" in that sense. We chose our
+        encoding to be a bar graph in order to portray our data in a simple and
+        concise way for our User. We decided to make our x-axis quantitative so
+        that we could clearly illustrate the year being referenced to since
+        there's a natural sorting to the axis.<br /><br />
 
         We also have different graphs via our buttons to view additional data to
         give a better understanding of our question through multiple data
@@ -157,7 +158,6 @@
       </p>
     </section>
 
-
     <footer>
       <p>
         <a href="https://gitlab.cs.washington.edu/cse442-22au/a3/NBAnalysis"
@@ -171,116 +171,6 @@
         <a href="https://www.washington.edu">University of Washington</a>
       </p>
     </footer>
-    <script>
-      var margin = { top: 30, right: 30, bottom: 70, left: 60 },
-        width = 1300 - margin.left - margin.right,
-        height = 650 - margin.top - margin.bottom;
-
-      var svg = d3
-        .select("#graphVisual")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-      svg
-        .append("circle")
-        .attr("cx", 900)
-        .attr("cy", -10)
-        .attr("r", 6)
-        .style("fill", "black");
-
-      svg
-        .append("text")
-        .attr("x", 920)
-        .attr("y", -9)
-        .text("2022 season is on-going")
-        .style("font-size", "15px")
-        .attr("alignment-baseline", "middle");
-
-      var x = d3.scaleBand().range([0, width]).padding(0.2);
-      var xAxis = svg
-        .append("g")
-        .attr("transform", "translate(0," + height + ")");
-
-      var y = d3.scaleLinear().range([height, 0]);
-      var yAxis = svg.append("g").attr("class", "myYaxis");
-
-      svg
-        .append("text")
-        .attr("x", 500)
-        .attr("y", 600)
-        .style("text-anchor", "middle")
-        .text("Year");
-
-      // svg.append("text")
-      // .attr("transform", "rotate(-90)")
-      // .attr("y", 0 - margin.left)
-      // .attr("x",0 - (height / 2))
-      // .attr("dy", "1em")
-      // .style("text-anchor", "middle")
-      // .text();
-
-      function changeLabel() {
-        const ylabel = document.getElementById("ylabel");
-        ylabel.innerHTML = "Three Point Attempts";
-      }
-
-      function changeLabel2() {
-        const ylabel = document.getElementById("ylabel");
-        ylabel.innerHTML = "Three Point Percentage %";
-      }
-
-      function changeLabel3() {
-        const ylabel = document.getElementById("ylabel");
-        ylabel.innerHTML = "Three Pointers Made";
-      }
-
-      function update(selectedVar, text) {
-        // Parse the Data
-        d3.csv("../nbaAvgs.csv", function (data) {
-          // X axis
-          x.domain(
-            data.map(function (d) {
-              return d.Year;
-            })
-          );
-          xAxis.transition().duration(1000).call(d3.axisBottom(x));
-
-          // Add Y axis
-          y.domain([
-            0,
-            d3.max(data, function (d) {
-              return +d[selectedVar];
-            }),
-          ]);
-
-          yAxis.transition().duration(1000).call(d3.axisLeft(y));
-          var l = svg.selectAll("rect").data(data);
-
-          // update bars
-          l.enter()
-            .append("rect")
-            .merge(l)
-            .transition()
-            .duration(1000)
-            .attr("x", function (d) {
-              return x(d.Year);
-            })
-            .attr("y", function (d) {
-              return y(d[selectedVar]);
-            })
-            .attr("width", x.bandwidth())
-            .attr("height", function (d) {
-              return height - y(d[selectedVar]);
-            })
-            .attr("fill", "#943d24");
-        });
-      }
-
-      // Initializes plot with threeAttempts data
-      update("threeAttempts", "Three Point Attempts");
-    </script>
+    <script src="main.js"></script>
   </body>
 </html>
