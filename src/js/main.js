@@ -56,7 +56,7 @@ function changeLabel3() {
 
 function update(selectedVar, text) {
   // Parse the Data
-  d3.csv("nbaAvgs.csv", function (data) {
+  d3.csv("/src/data/nbaAvgs.csv", function (data) {
     // X axis
     x.domain(
       data.map(function (d) {
